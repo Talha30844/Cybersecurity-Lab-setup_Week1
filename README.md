@@ -10,8 +10,6 @@ The purpose of this lab is to provide a safe and controlled environment where I 
 
 This setup provides a reusable foundation for upcoming cybersecurity labs and practical exercises.
 
----
-
 ## What This Lab Provides
 
 * A fully configured **VirtualBox hypervisor** capable of running multiple virtual machines.
@@ -22,8 +20,6 @@ This setup provides a reusable foundation for upcoming cybersecurity labs and pr
 * A working gateway configuration.
 * A clean VirtualBox snapshot for recovery.
 * A controlled environment for future cybersecurity testing.
-
----
 
 ## Why an Isolated Cybersecurity Lab Is Important
 
@@ -40,7 +36,6 @@ The isolated environment allows future virtual machines to communicate with each
 
 > **Important:** This laboratory is intended strictly for educational purposes. Security testing should only be performed against systems that I own or have explicit authorization to test.
 
----
 
 ## Environment Details
 
@@ -48,16 +43,14 @@ The isolated environment allows future virtual machines to communicate with each
 | ------------ | ---------------------------------------------- |
 | Host OS      | Windows 11                                     |
 | Host RAM     | 16 GB                                           |
-| Processor    | Intel Core i7-8665U                                    |
-| Hypervisor   | VirtualBox 7.2.14 r174565 (Qt6.8.0 on Windows) |
+| Processor    | Intel Core i7-8665U                             |
+| Hypervisor   | VirtualBox 7.2.14 r174565                      |
 | Guest OS     | Kali Linux 2026.2                              |
 | Guest RAM    | 2048 MB                                        |
 | Network Type | NAT Network (isolated)                         |
 | Kali IP      | 10.0.0.2/24                                    |
 | Gateway      | 10.0.0.1                                       |
 | DNS          | 8.8.8.8                                        |
-
----
 
 # Setup Walkthrough
 
@@ -66,7 +59,6 @@ The isolated environment allows future virtual machines to communicate with each
 The first step was installing **7-Zip**, which was required to extract the compressed Kali Linux virtual machine package.
 After extraction, the Kali appliance files were available for importing into VirtualBox.
 
----
 
 ## 2. Installed VirtualBox
 
@@ -77,7 +69,6 @@ The installed version used for this setup was:
 ```text
 VirtualBox 7.2.14 r174565 (Qt6.8.0 on Windows)
 ```
----
 
 ## 3. Created a Dedicated NAT Network
 
@@ -88,10 +79,10 @@ The network was configured as:
 10.0.0.0/24
 ```
 This approach is useful for a multi-machine cybersecurity lab because virtual machines connected to the same NAT Network can communicate with each other while still having access to the internet through the host.
-https://github.com/Talha30844/Cybersecurity-Lab-setup_Week1/blob/main/Screenshot(1)%202026-09-11%20.png
 
+<img width="960" height="504" alt="Screenshot(1) 2026-09-11 " src="https://github.com/user-attachments/assets/e57d9dbe-4848-4f09-aace-10f6f42e8965" />
+<img width="960" height="504" alt="Screenshot2 2026-09-11 " src="https://github.com/user-attachments/assets/048c3c94-c0f0-4c75-8e3e-8d88db8c0be1" />
 
----
 
 ## 4. Imported the Kali Linux Virtual Machine
 
@@ -100,20 +91,16 @@ After preparing the network, I imported the pre-configured **Kali Linux 2026.2**
 I used VirtualBox's **Import Appliance** functionality rather than installing Kali Linux manually from an ISO file.
 
 This made the initial deployment faster and provided a ready-to-configure Kali environment.
+<img width="951" height="500" alt="Screenshot(3) 2026-09-11 " src="https://github.com/user-attachments/assets/2b7206c6-f29f-4a12-88bb-30021afc6131" />
 
-**KEEP HERE PICTURE**
-
----
 
 ## 5. Connected Kali Linux to the NAT Network
 
 After importing the appliance, I opened the Kali virtual machine's network settings and connected its network adapter to the custom NAT Network.
 
 This ensured that the Kali VM would use the dedicated laboratory network rather than the default VirtualBox networking configuration.
-
-**KEEP HERE PICTURE**
-
----
+<img width="960" height="504" alt="Screenshot(4) 2026-09-11 " src="https://github.com/user-attachments/assets/31d0d285-7869-4262-9396-eb617786c0cb" />
+<img width="642" height="464" alt="Screenshot(6) 2026-09-11 " src="https://github.com/user-attachments/assets/af7bfb6c-1df0-47c2-a8a1-335991bc644c" />
 
 ## 6. Configured a Static IP Address
 
@@ -126,26 +113,21 @@ The final network values were:
 * **DNS:** `8.8.8.8`
 
 Using a fixed IP address makes the lab easier to manage because Kali will have a predictable address every time the virtual machine starts.
+<img width="642" height="464" alt="Screenshot(7) 2026-09-11 " src="https://github.com/user-attachments/assets/f9b647e6-ab14-4734-95bd-ee59ee6bb014" />
 
-**KEEP HERE PICTURE**
-
----
 
 ## 7. Verified the Kali Network Configuration
 
 After applying the static configuration, I checked the network interface to confirm that Kali had received the expected IP address.
 
 The expected configuration was:
-
 ```text
 10.0.0.2/24
 ```
-
 on the Kali network interface.
 
-**KEEP HERE PICTURE**
+<img width="642" height="464" alt="Screenshot(8) 2026-09-11 " src="https://github.com/user-attachments/assets/a0d009b2-9a9d-44a1-adfe-cf657fc11861" />
 
----
 
 ## 8. Tested Network Connectivity
 
@@ -158,172 +140,12 @@ The following commands were used:
 ```bash
 ip a
 ```
-
 This was used to verify the assigned IP address.
 
-### Check Gateway
-
-```bash
-ping 10.0.0.1
-```
-
-This checked whether the Kali VM could communicate with its gateway.
-
-### Check Internet Connectivity
-
-```bash
-ping 8.8.8.8
-```
-
-This verified internet connectivity.
-
-### Check DNS Resolution
-
-```bash
-nslookup google.com
-```
-
-This confirmed that DNS resolution was functioning correctly.
-
-**KEEP HERE PICTURE**
-
----
-
-# A Networking Issue I Encountered
-
-During the configuration process, I faced a connectivity problem after changing Kali Linux from DHCP to a manually configured static IP.
-
-When I attempted:
-
-```bash
-ping google.com
-```
-
-Kali returned:
-
-```text
-ping google.com: Temporary failure in name resolution
-```
-
-Initially, this appeared to be a DNS-related problem.
-
-However, after checking the DNS configuration inside Kali Linux, I confirmed that:
-
-```text
-nameserver 8.8.8.8
-```
-
-was already configured in `/etc/resolv.conf`.
-
-This indicated that the DNS entry itself was not necessarily the main problem.
-
----
-
-# Identifying the Actual Cause
-
-After further investigation, the problem was traced back to the **VirtualBox NAT Network configuration**.
-
-The addressing configuration on the VirtualBox side was not correctly aligned with the IP configuration being used by the Kali VM.
-
-I reviewed the NAT Network settings and corrected the network configuration so that it matched the intended laboratory setup.
-
-After making the correction, network connectivity started working again, including DNS resolution.
-
-**KEEP HERE PICTURE**
-
----
-
-# Lesson From the Troubleshooting Process
-
-One important lesson from this issue was that an error such as:
-
-```text
-Temporary failure in name resolution
-```
-
-does not always mean that the DNS server configuration is the actual cause.
-
-In a virtualized environment, connectivity depends on several components working together:
-
-1. Guest operating system configuration
-2. IP address
-3. Subnet
-4. Default gateway
-5. DNS configuration
-6. VirtualBox network configuration
-7. NAT Network settings
-
-Therefore, when troubleshooting a virtual machine, it is important to check both the **guest operating system** and the **virtualization platform**.
-
----
-
-# Final Network Configuration
-
-After resolving the issue, the Kali Linux laboratory environment was configured as follows:
-
-| Setting      | Value         |
-| ------------ | ------------- |
-| Network      | `10.0.0.0/24` |
-| Kali IP      | `10.0.0.2/24` |
-| Gateway      | `10.0.0.1`    |
-| DNS          | `8.8.8.8`     |
-| Network Type | NAT Network   |
-
-**KEEP HERE PICTURE**
-
----
-
-# Verification of the Complete Setup
-
-To make sure the environment was stable, I performed an end-to-end verification after completing the configuration.
-
-### IP Address Verification
-
-```bash
-ip a
-```
-
-Expected result:
-
-```text
-10.0.0.2/24
-```
-
-This confirmed that the Kali network interface was using the expected static IP.
-
-### Gateway Verification
-
-```bash
-ping 10.0.0.1
-```
-
-Expected result:
-
-Successful replies from the gateway without packet loss.
-
-### Internet Connectivity Verification
-
-```bash
-ping 8.8.8.8
-```
-
-Expected result:
-
-Successful replies from the Google DNS server.
-
-### DNS Verification
-
-```bash
-nslookup google.com
-```
-
-Expected result:
-
-`google.com` successfully resolves to a valid IP address.
-
-**KEEP HERE PICTURE**
-
----
+<img width="642" height="464" alt="Screenshot(9) 2026-09-11 " src="https://github.com/user-attachments/assets/9e981dbe-d898-4bd5-bd8d-269e4fb04849" />\
+<img width="642" height="464" alt="Screenshot(10) 2026-09-11 " src="https://github.com/user-attachments/assets/ecff386a-6699-4f3c-88e1-13d4f8241cf5" />
+<img width="641" height="463" alt="screenshot (11)" src="https://github.com/user-attachments/assets/ae677fc3-c3bb-43a5-b67b-61f730f5382e" />
+<img width="641" height="463" alt="Screenshot 2026-09-11 103743" src="https://github.com/user-attachments/assets/327fba96-c5b3-4e6a-9a25-a5a439348cd1" />
 
 # Sample Network Configuration
 
@@ -346,10 +168,9 @@ Once all networking and connectivity tests were completed successfully, I create
 The snapshot acts as a recovery point for future cybersecurity labs.
 
 If a future experiment changes the configuration or causes the VM to stop working correctly, I can restore this clean state instead of rebuilding the entire environment.
+<img width="960" height="504" alt="Screenshot 2026-09-11 104803" src="https://github.com/user-attachments/assets/6eb871b8-1e75-4498-bd1b-e0599bc34c53" />
 
-**KEEP HERE PICTURE**
 
----
 
 # Why the Snapshot Is Important
 
@@ -373,7 +194,7 @@ Working Lab
 
 This makes the environment reusable for future practical exercises.
 
----
+
 
 # Key Takeaways
 
@@ -383,7 +204,7 @@ A standard VirtualBox NAT configuration primarily provides a virtual machine wit
 
 A **NAT Network** is more suitable for a multi-machine laboratory because multiple virtual machines connected to the same network can communicate with one another while also accessing the internet.
 
----
+
 
 ## 2. Static IP Configuration
 
@@ -398,7 +219,7 @@ The following values must work together correctly:
 
 Incorrect configuration of any of these can result in connectivity problems.
 
----
+
 
 ## 3. Virtualization Network Configuration Matters
 
@@ -412,7 +233,7 @@ The hypervisor's virtual networking configuration can also affect:
 * DNS resolution
 * Communication between virtual machines
 
----
+
 
 ## 4. Snapshots Make Labs Easier to Maintain
 
@@ -420,7 +241,7 @@ A clean snapshot provides a reliable recovery point.
 
 Instead of rebuilding the complete Kali environment after every major configuration problem, the virtual machine can be restored to a known working state.
 
----
+
 
 ## 5. Documentation Is Part of the Learning Process
 
@@ -428,7 +249,7 @@ Documenting the setup, configuration, problems, troubleshooting process, and fin
 
 It also helps identify what caused a problem and how it was resolved.
 
----
+
 
 # Tools Used
 
@@ -438,7 +259,7 @@ The following tools were used to build this Week 1 cybersecurity environment:
 * **VirtualBox**
 * **Kali Linux**
 
----
+
 
 # Final Result
 
@@ -468,25 +289,23 @@ The environment has been tested for:
 
 This provides a stable foundation for the upcoming cybersecurity labs and hands-on security exercises.
 
-**KEEP HERE PICTURE**
 
----
 
 # About Me
 
-**Muhammad Sami Ullah**
-Cybersecurity Professional B082
+**Muhammad Talha**
+
+Cybersecurity Professional B083
+
 **Networkwalks Internship — Week 1**
+
 **Lab Environment Setup**
 
-[LinkedIn](#)
+[LinkedIn](https://lnkd.in/p/dEeuEJUb)
 
----
 
 # Acknowledgment
 
 I would like to thank **Networkwalks** for providing the opportunity to work on this practical cybersecurity setup.
-
 Special thanks to my instructor **Waqas Karim (CCIE)** for the guidance and support throughout the setup process, especially in understanding the reasoning behind the virtualization and networking configuration rather than simply following the steps.
-
 This Week 1 lab has provided a strong practical foundation for continuing with more advanced cybersecurity exercises.
